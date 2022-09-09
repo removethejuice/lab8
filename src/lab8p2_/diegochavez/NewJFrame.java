@@ -427,8 +427,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void crearuniversoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearuniversoMouseClicked
         if (nombreuniverso.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
-        } else {
+            JOptionPane.showMessageDialog(this, "Opcion no permitidaaaa no deben de haber espacios vacios");
+            return;
+        }
+             
             universo x12 = new universo();
             x12.setNombre(nombreuniverso.getText());
             adminuniverso v = new adminuniverso();
@@ -456,7 +458,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(this, "Universo creado");
             nombreuniverso.setText("");
-        }// fin del else
+        
     }//GEN-LAST:event_crearuniversoMouseClicked
 
     private void b_crearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_crearMouseClicked
