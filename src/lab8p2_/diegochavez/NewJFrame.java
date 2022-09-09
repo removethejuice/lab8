@@ -5,7 +5,11 @@
  */
 package lab8p2_.diegochavez;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -15,12 +19,13 @@ import javax.swing.JOptionPane;
  * @author 50497
  */
 public class NewJFrame extends javax.swing.JFrame {
-
+int numerox = 0;
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
         initComponents();
+        
     }
 
     /**
@@ -35,8 +40,8 @@ public class NewJFrame extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        nombreuniverso = new javax.swing.JTextField();
+        crearuniverso = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jTextField4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -54,6 +59,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        barra = new javax.swing.JProgressBar();
+        jb_agregar = new javax.swing.JButton();
+        jb_cargar = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         tf_nombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -76,10 +86,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Nombre");
 
-        jButton1.setText("Crear Universo");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        crearuniverso.setText("Crear Universo");
+        crearuniverso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                crearuniversoMouseClicked(evt);
             }
         });
 
@@ -93,10 +103,10 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addComponent(jLabel6)
                         .addGap(28, 28, 28)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nombreuniverso, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(178, 178, 178)
-                        .addComponent(jButton1)))
+                        .addComponent(crearuniverso)))
                 .addContainerGap(384, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -105,9 +115,9 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombreuniverso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(70, 70, 70)
-                .addComponent(jButton1)
+                .addComponent(crearuniverso)
                 .addContainerGap(274, Short.MAX_VALUE))
         );
 
@@ -215,15 +225,58 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Editar Ser", jPanel3);
 
+        jb_agregar.setText("Agregar");
+        jb_agregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_agregarMouseClicked(evt);
+            }
+        });
+
+        jb_cargar.setText("Cargar");
+        jb_cargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_cargarMouseClicked(evt);
+            }
+        });
+
+        jLabel13.setText("Proporcione la direccion de el archivo");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 667, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(264, 264, 264)
+                        .addComponent(jb_cargar))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(206, 206, 206)
+                        .addComponent(jLabel13))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(257, 257, 257)
+                        .addComponent(jb_agregar)))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(101, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addGap(30, 30, 30)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jb_agregar)
+                .addGap(53, 53, 53)
+                .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jb_cargar)
+                .addGap(90, 90, 90))
         );
 
         jTabbedPane1.addTab("Cargar", jPanel4);
@@ -369,30 +422,87 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-       universo x12 = new universo();
-       x12.setNombre(jTextField3.getText());
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void crearuniversoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearuniversoMouseClicked
+        if (nombreuniverso.getText().equals("")){
+       JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
+        }
+        else {
+        universo x12 = new universo();
+        x12.setNombre(nombreuniverso.getText());        
+        adminuniverso v = new adminuniverso();
+        v.leer();
+        v.getListauniversos().add(x12);
+        v.escribir();
+        
+        
+         File xc = new File("./universo/" + tf_nombre.getText() + ".mb");
+            FileOutputStream fw = null;
+            ObjectOutputStream bw = null;
+            try {
+                fw = new FileOutputStream(xc);
+                bw = new ObjectOutputStream(fw);
+
+                bw.writeObject(xc);
+
+                bw.flush();
+            } catch (Exception ex) {
+            } finally {
+                try {
+                    bw.close();
+                    fw.close();
+                } catch (Exception ex) {
+                }
+            }
+        
+        }// fin del else
+    }//GEN-LAST:event_crearuniversoMouseClicked
 
     private void b_crearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_crearMouseClicked
         if (tf_nombre.getText().equals("") || tf_id.getText().equals("") || ftf_edad.getText().equals("") || ftf_poder.getText().equals("") || (!jr_humano.isSelected() && !jr_amato.isSelected())) {
             JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
         } else {
-            servivo ap = new servivo(tf_nombre.getText(), tf_id.getText(),  Integer.parseInt(ftf_poder.getText()), Integer.parseInt(ftf_edad.getText()),((universo) jc_universo.getSelectedItem()), "Humano");
-        adminseresvivos x2 = new adminseresvivos();
-            
-                x2.leer();
-           
-        x2.getListaseresvivos().add(ap);
-        x2.escribir();
-        }
-        
-        
+            servivo ap = new servivo(tf_nombre.getText(), tf_id.getText(), Integer.parseInt(ftf_poder.getText()), Integer.parseInt(ftf_edad.getText()), ((universo) jc_universo.getSelectedItem()), "Humano");
+            adminseresvivos x2 = new adminseresvivos();
+            x2.leer();
+            x2.getListaseresvivos().add(ap);
+            x2.escribir();
+
+            File xc = new File("./seres/" + tf_nombre.getText() + ".mb");
+            FileOutputStream fw = null;
+            ObjectOutputStream bw = null;
+            try {
+                fw = new FileOutputStream(xc);
+                bw = new ObjectOutputStream(fw);
+
+                bw.writeObject(xc);
+
+                bw.flush();
+            } catch (Exception ex) {
+            } finally {
+                try {
+                    bw.close();
+                    fw.close();
+                } catch (Exception ex) {
+                }
+            }
+
+        }// fin del else
+
+
     }//GEN-LAST:event_b_crearMouseClicked
 
     private void ftf_poderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftf_poderActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ftf_poderActionPerformed
+
+    private void jb_cargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cargarMouseClicked
+       hilo xt = new hilo();
+    }//GEN-LAST:event_jb_cargarMouseClicked
+
+    private void jb_agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarMouseClicked
+        numerox++;
+        ArrayList pendejada = new ArrayList();
+    }//GEN-LAST:event_jb_agregarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -408,16 +518,24 @@ public class NewJFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewJFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -432,9 +550,10 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_crear;
     private javax.swing.JButton b_editar;
+    private javax.swing.JProgressBar barra;
+    private javax.swing.JButton crearuniverso;
     private javax.swing.JFormattedTextField ftf_edad;
     private javax.swing.JFormattedTextField ftf_poder;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -445,6 +564,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -461,12 +581,15 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JButton jb_agregar;
+    private javax.swing.JButton jb_cargar;
     private javax.swing.JComboBox<String> jc_universo;
     private javax.swing.JRadioButton jr_amato;
     private javax.swing.JRadioButton jr_humano;
+    private javax.swing.JTextField nombreuniverso;
     private javax.swing.JTextField tf_id;
     private javax.swing.JTextField tf_nombre;
     // End of variables declaration//GEN-END:variables

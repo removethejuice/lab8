@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package lab8p2_.diegochavez;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,45 +37,53 @@ public class adminuniverso {
         this.archivouniverso = archivouniverso;
     }
 
-     
-
-   
-
-    public void leer() throws IOException {
-        FileInputStream fis2 = null;
-        ObjectInputStream ois2 = null;
-        listauniversos = new ArrayList();
-        universo temp2;
+    public void leer() {
         try {
-            fis2 = new FileInputStream(archivouniverso);
-            ois2 = new ObjectInputStream(fis2);
-            while ((temp2 = (universo) ois2.readObject()) != null) {
-                listauniversos.add(temp2);
+            FileInputStream fis = null;
+            ObjectInputStream ois = null;
+            if (archivouniverso.exists()) {
+                listauniversos = new ArrayList();
+                universo temp;
+
+                fis = new FileInputStream(archivouniverso);
+                ois = new ObjectInputStream(fis);
+                try {
+                    while ((temp = (universo) ois.readObject()) != null) {
+                        listauniversos.add(temp);
+                    }// fin del while
+                } catch (Exception e30) {
+
+                }
+
+                ois.close();
+                fis.close();
             }
         } catch (Exception ex) {
             // encontro el fin de la pendejada esa
         }
-        try{
-        ois2.close();
-        fis2.close();
-        }catch(Exception ex4){
-        
-        }
+
     }
 
-    public void escribir() throws IOException {
-        FileOutputStream fos2 = null;
-        ObjectOutputStream oos2 = null;
-        for (universo x100 : listauniversos) {
-            oos2.writeObject(x100);
+    public void escribir()  {
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+
+        try {
+            fos = new FileOutputStream(archivouniverso);
+            oos = new ObjectOutputStream(fos);
+            for (universo x99 : listauniversos) {
+                oos.writeObject(x99);
+            }
+
+        } catch (Exception tr) {
+
         }
-        try{
-        oos2.close();
-        fos2.close();
-    }
-        catch(Exception x3){
-    
-    }
+        try {
+            oos.close();
+            fos.close();
+        } catch (Exception x3) {
+
+        }
     }
 
 }
