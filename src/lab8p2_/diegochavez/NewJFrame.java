@@ -19,13 +19,15 @@ import javax.swing.JOptionPane;
  * @author 50497
  */
 public class NewJFrame extends javax.swing.JFrame {
-int numerox = 0;
+
+    int numerox = 0;
+
     /**
      * Creates new form NewJFrame
      */
     public NewJFrame() {
         initComponents();
-        
+
     }
 
     /**
@@ -423,19 +425,17 @@ int numerox = 0;
     }// </editor-fold>//GEN-END:initComponents
 
     private void crearuniversoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearuniversoMouseClicked
-        if (nombreuniverso.getText().equals("")){
-       JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
-        }
-        else {
-        universo x12 = new universo();
-        x12.setNombre(nombreuniverso.getText());        
-        adminuniverso v = new adminuniverso();
-        v.leer();
-        v.getListauniversos().add(x12);
-        v.escribir();
-        
-        
-         File xc = new File("./universo/" + tf_nombre.getText() + ".mb");
+        if (nombreuniverso.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
+        } else {
+            universo x12 = new universo();
+            x12.setNombre(nombreuniverso.getText());
+            adminuniverso v = new adminuniverso();
+            v.leer();
+            v.getListauniversos().add(x12);
+            v.escribir();
+
+            File xc = new File("./universo/" + nombreuniverso.getText() + ".mb");
             FileOutputStream fw = null;
             ObjectOutputStream bw = null;
             try {
@@ -453,7 +453,8 @@ int numerox = 0;
                 } catch (Exception ex) {
                 }
             }
-        
+            JOptionPane.showMessageDialog(this, "Universo creado");
+            nombreuniverso.setText("");
         }// fin del else
     }//GEN-LAST:event_crearuniversoMouseClicked
 
@@ -462,6 +463,11 @@ int numerox = 0;
             JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
         } else {
             servivo ap = new servivo(tf_nombre.getText(), tf_id.getText(), Integer.parseInt(ftf_poder.getText()), Integer.parseInt(ftf_edad.getText()), ((universo) jc_universo.getSelectedItem()), "Humano");
+            if (jr_humano.isSelected()) {
+
+            } else {
+                ap.setRaza("Amata");
+            }
             adminseresvivos x2 = new adminseresvivos();
             x2.leer();
             x2.getListaseresvivos().add(ap);
@@ -485,7 +491,9 @@ int numerox = 0;
                 } catch (Exception ex) {
                 }
             }
-
+            JOptionPane.showMessageDialog(this, "Ser creado");
+            tf_nombre.setText(""); tf_id.setText(""); ftf_poder.setText("");
+          ftf_edad.setText("");  
         }// fin del else
 
 
@@ -496,7 +504,7 @@ int numerox = 0;
     }//GEN-LAST:event_ftf_poderActionPerformed
 
     private void jb_cargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cargarMouseClicked
-       hilo xt = new hilo();
+        hilo xt = new hilo();
     }//GEN-LAST:event_jb_cargarMouseClicked
 
     private void jb_agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarMouseClicked
