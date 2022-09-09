@@ -5,6 +5,9 @@
  */
 package lab8p2_.diegochavez;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -375,9 +378,13 @@ public class NewJFrame extends javax.swing.JFrame {
         if (tf_nombre.getText().equals("") || tf_id.getText().equals("") || ftf_edad.getText().equals("") || ftf_poder.getText().equals("") || (!jr_humano.isSelected() && !jr_amato.isSelected())) {
             JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
         } else {
-            servivo ap = new servivo();
-            //(tf_nombre.getText(), tf_id.getText(),  Integer.parseInt(ftf_poder.getText()), Integer.parseInt(ftf_edad.getText()),((universo) jc_universo.getSelectedItem()), "Humano");
-            ap.setNombre(tf_nombre.getText());
+            servivo ap = new servivo(tf_nombre.getText(), tf_id.getText(),  Integer.parseInt(ftf_poder.getText()), Integer.parseInt(ftf_edad.getText()),((universo) jc_universo.getSelectedItem()), "Humano");
+        adminseresvivos x2 = new adminseresvivos();
+            
+                x2.leer();
+           
+        x2.getListaseresvivos().add(ap);
+        x2.escribir();
         }
         
         

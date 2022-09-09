@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class adminseresvivos {
 
     private ArrayList<servivo> listaseresvivos = new ArrayList();
-    private File archivoservivo = new File ("./bua.txt");
+    private File archivoservivo = new File("./genero/seresvivos.mb");
 
     public adminseresvivos() {
     }
@@ -32,38 +32,53 @@ public class adminseresvivos {
         this.archivoservivo = archivoservivo;
     }
 
-    public void leer() throws IOException {
-        FileInputStream fis = null;
-        ObjectInputStream ois = null;
-        listaseresvivos = new ArrayList();
-        servivo temp;
+    public void leer() {
         try {
+            FileInputStream fis = null;
+            ObjectInputStream ois = null;
+            if (archivoservivo.exists()){
+            listaseresvivos = new ArrayList();
+            servivo temp;
+
             fis = new FileInputStream(archivoservivo);
             ois = new ObjectInputStream(fis);
+            try {
             while ((temp = (servivo) ois.readObject()) != null) {
                 listaseresvivos.add(temp);
+            }// fin del while
+             } catch (Exception e30) {
+
+            }
+            
+                ois.close();
+                fis.close();
             }
         } catch (Exception ex) {
             // encontro el fin de la pendejada esa
         }
-        ois.close();
-        fis.close();
 
     }
 
-    public void escribir() throws IOException {
+    public void escribir() {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
-        for (servivo x99 : listaseresvivos) {
-            oos.writeObject(x99);
+
+        try {
+            fos = new FileOutputStream(archivoservivo);
+            oos = new ObjectOutputStream(fos);
+            for (servivo x99 : listaseresvivos) {
+                oos.writeObject(x99);
+            }
+
+        } catch (Exception tr) {
+
         }
-        try{
-        oos.close();
-        fos.close();
-    }
-        catch(Exception x3){
-    
-    }
+        try {
+            oos.close();
+            fos.close();
+        } catch (Exception x3) {
+
+        }
     }
 
 }

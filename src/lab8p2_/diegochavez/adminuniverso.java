@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class adminuniverso {
 
     private ArrayList<universo> listauniversos = new ArrayList();
-    private File archivouniverso = null;
+    private File archivouniverso = new File("./genera/universos.mb");
 
     public adminuniverso() {
     }
