@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -459,6 +460,12 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_crearuniversoMouseClicked
 
     private void b_crearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_crearMouseClicked
+        DefaultComboBoxModel cv = (DefaultComboBoxModel)jc_universo.getModel();
+        adminuniverso f = new adminuniverso();
+        f.leer();
+        for (universo g : f.getListauniversos()) {
+            cv.addElement(g);
+        }
         if (tf_nombre.getText().equals("") || tf_id.getText().equals("") || ftf_edad.getText().equals("") || ftf_poder.getText().equals("") || (!jr_humano.isSelected() && !jr_amato.isSelected())) {
             JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
         } else {
