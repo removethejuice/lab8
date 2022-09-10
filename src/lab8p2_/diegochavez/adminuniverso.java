@@ -41,7 +41,7 @@ public class adminuniverso {
         try {
             FileInputStream fis = null;
             ObjectInputStream ois = null;
-            if (archivouniverso.exists()) {
+             
                 listauniversos = new ArrayList();
                 universo temp;
 
@@ -57,7 +57,7 @@ public class adminuniverso {
 
                 ois.close();
                 fis.close();
-            }
+            
         } catch (Exception ex) {
             // encontro el fin de la pendejada esa
         }

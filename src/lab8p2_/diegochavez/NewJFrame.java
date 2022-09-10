@@ -442,7 +442,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void crearuniversoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearuniversoMouseClicked
         if (nombreuniverso.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Opcion no permitidaaaa no deben de haber espacios vacios");
+            JOptionPane.showMessageDialog(this, "Opcion no permitidaa no deben de haber espacios vacios");
             return;
         }
 
@@ -473,12 +473,16 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, "Universo creado");
         nombreuniverso.setText("");
+        
+        
         DefaultComboBoxModel cv = (DefaultComboBoxModel) jc_universo.getModel();
         adminuniverso f = new adminuniverso();
         f.leer();
-        for (universo g : f.getListauniversos()) {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel(f.getListauniversos().toArray());
+        jc_universo.setModel(modelo);
+        /*for (universo g : f.getListauniversos()) {
             cv.addElement(g);
-        }
+        }*/
 
         DefaultComboBoxModel ct = (DefaultComboBoxModel) C_2.getModel();
         adminuniverso fR = new adminuniverso();
@@ -503,6 +507,17 @@ public class NewJFrame extends javax.swing.JFrame {
             x2.leer();
             x2.getListaseresvivos().add(ap);
             x2.escribir();
+
+            adminuniverso pk = new adminuniverso();
+            pk.leer();
+            int lm = 0;
+            for (universo l : pk.getListauniversos()) {
+                if (l.getNombre().equals(((universo) jc_universo.getSelectedItem()).getNombre())) {
+                    pk.getListauniversos().get(lm).getListaseresvivos().add(ap);
+                }
+                lm++;
+            }
+            pk.escribir();
 
             File xc = new File("./seres/" + tf_nombre.getText() + ".mb");
             FileOutputStream fw = null;
@@ -579,20 +594,21 @@ public class NewJFrame extends javax.swing.JFrame {
     private void eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarMouseClicked
         DefaultComboBoxModel ti = (DefaultComboBoxModel) c_eliminar.getModel();
         servivo po = (servivo) c_eliminar.getSelectedItem();
-        int yc=c_eliminar.getSelectedIndex();
-        
-        String uy =  po.getNombre();
-        File temp = new File("./seres/"+ uy+ ".mb");
+        int yc = c_eliminar.getSelectedIndex();
+
+        String uy = po.getNombre();
+        File temp = new File("./seres/" + uy + ".mb");
         temp.delete();
         ti.removeElement(c_eliminar.getSelectedIndex());
-       adminseresvivos x2 = new adminseresvivos();
-            x2.leer();
-            x2.getListaseresvivos().remove(c_eliminar.getSelectedIndex());
-            x2.escribir();
-       
+        adminseresvivos x2 = new adminseresvivos();
+        x2.leer();
+        x2.getListaseresvivos().remove(c_eliminar.getSelectedIndex());
+        x2.escribir();
+
     }//GEN-LAST:event_eliminarMouseClicked
 
     private void b_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_editarMouseClicked
+        DefaultComboBoxModel tp = (DefaultComboBoxModel) c_editar.getModel();
 
     }//GEN-LAST:event_b_editarMouseClicked
 
