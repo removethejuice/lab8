@@ -473,8 +473,7 @@ public class NewJFrame extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, "Universo creado");
         nombreuniverso.setText("");
-        
-        
+
         DefaultComboBoxModel cv = (DefaultComboBoxModel) jc_universo.getModel();
         adminuniverso f = new adminuniverso();
         f.leer();
@@ -609,7 +608,26 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void b_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_editarMouseClicked
         DefaultComboBoxModel tp = (DefaultComboBoxModel) c_editar.getModel();
-
+        servivo py = (servivo) c_editar.getSelectedItem();
+        adminseresvivos p9 = new adminseresvivos();
+        p9.leer();
+        for (servivo object : p9.getListaseresvivos()) {
+            int yu =0;
+            if (object.getID().equals(py.getID())) {
+            p9.getListaseresvivos().get(yu).setAnios(Integer.parseInt(jFormattedTextField3.getText()));
+            p9.getListaseresvivos().get(yu).setPoder(Integer.parseInt(jFormattedTextField4.getText()));
+            p9.getListaseresvivos().get(yu).setNombre(jTextField4.getText());
+            p9.getListaseresvivos().get(yu).setID(jTextField5.getText());
+            p9.getListaseresvivos().get(yu).setX1((universo) C_2.getSelectedItem());
+            if (jRadioButton4.isSelected()){
+            p9.getListaseresvivos().get(yu).setRaza("Humano");
+            }
+            else {
+                p9.getListaseresvivos().get(yu).setRaza("Amata");
+            }
+            }
+            yu++;
+        }
     }//GEN-LAST:event_b_editarMouseClicked
 
     /**
