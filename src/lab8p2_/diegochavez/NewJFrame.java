@@ -479,8 +479,8 @@ public class NewJFrame extends javax.swing.JFrame {
         for (universo g : f.getListauniversos()) {
             cv.addElement(g);
         }
-        
-         DefaultComboBoxModel ct = (DefaultComboBoxModel) C_2.getModel();
+
+        DefaultComboBoxModel ct = (DefaultComboBoxModel) C_2.getModel();
         adminuniverso fR = new adminuniverso();
         fR.leer();
         for (universo g : fR.getListauniversos()) {
@@ -549,10 +549,10 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ftf_poderActionPerformed
 
     private void jb_cargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cargarMouseClicked
-        hilo xt = new hilo(barra,numerox);
+        hilo xt = new hilo(barra, numerox);
         Thread proceso1 = new Thread(xt);
-        proceso1.start(); 
-        numerox =0;
+        proceso1.start();
+        numerox = 0;
     }//GEN-LAST:event_jb_cargarMouseClicked
 
     private void jb_agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarMouseClicked
@@ -568,6 +568,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 pend2.add((servivo) gh.readObject());
             } else {
                 JOptionPane.showMessageDialog(this, "No es de tipo universo o ser vivo, archivo EQUIVOCADO");
+                numerox--;
             }
 
         } catch (Exception fvg) {
@@ -576,11 +577,23 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_agregarMouseClicked
 
     private void eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarMouseClicked
-
+        DefaultComboBoxModel ti = (DefaultComboBoxModel) c_eliminar.getModel();
+        servivo po = (servivo) c_eliminar.getSelectedItem();
+        int yc=c_eliminar.getSelectedIndex();
+        
+        String uy =  po.getNombre();
+        File temp = new File("./seres/"+ uy+ ".mb");
+        temp.delete();
+        ti.removeElement(c_eliminar.getSelectedIndex());
+       adminseresvivos x2 = new adminseresvivos();
+            x2.leer();
+            x2.getListaseresvivos().remove(c_eliminar.getSelectedIndex());
+            x2.escribir();
+       
     }//GEN-LAST:event_eliminarMouseClicked
 
     private void b_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_editarMouseClicked
-         
+
     }//GEN-LAST:event_b_editarMouseClicked
 
     /**
