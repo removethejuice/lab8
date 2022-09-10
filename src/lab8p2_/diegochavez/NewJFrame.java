@@ -65,7 +65,7 @@ public class NewJFrame extends javax.swing.JFrame {
         barra = new javax.swing.JProgressBar();
         jb_agregar = new javax.swing.JButton();
         jb_cargar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        ruta = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         tf_nombre = new javax.swing.JTextField();
@@ -82,8 +82,8 @@ public class NewJFrame extends javax.swing.JFrame {
         jr_humano = new javax.swing.JRadioButton();
         b_crear = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        eliminar = new javax.swing.JButton();
+        c_eliminar = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -256,7 +256,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(118, 118, 118)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(barra, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(206, 206, 206)
@@ -272,7 +272,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap(101, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(30, 30, 30)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ruta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(jb_agregar)
                 .addGap(53, 53, 53)
@@ -381,7 +381,12 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Crear Ser", jPanel1);
 
-        jButton2.setText("Eliminar");
+        eliminar.setText("Eliminar");
+        eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eliminarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -391,19 +396,19 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(230, 230, 230)
-                        .addComponent(jButton2))
+                        .addComponent(eliminar))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(179, 179, 179)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(c_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(312, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(106, 106, 106)
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
-                .addComponent(jButton2)
+                .addComponent(eliminar)
                 .addContainerGap(229, Short.MAX_VALUE))
         );
 
@@ -505,7 +510,12 @@ public class NewJFrame extends javax.swing.JFrame {
           ftf_edad.setText("");  
         }// fin del else
 
-
+ DefaultComboBoxModel cy = (DefaultComboBoxModel)c_eliminar.getModel();
+        adminseresvivos f3 = new adminseresvivos();
+        f3.leer();
+        for (servivo g : f3.getListaseresvivos()) {
+            cy.addElement(g);
+        }
     }//GEN-LAST:event_b_crearMouseClicked
 
     private void ftf_poderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftf_poderActionPerformed
@@ -514,12 +524,22 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jb_cargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cargarMouseClicked
         hilo xt = new hilo();
+        
     }//GEN-LAST:event_jb_cargarMouseClicked
 
     private void jb_agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarMouseClicked
         numerox++;
-        ArrayList pendejada = new ArrayList();
+        ArrayList<universo> pendejada = new ArrayList();
+         ArrayList<servivo> pendejada2 = new ArrayList();
+          File xc = new File(ruta.getText());
+          if (xc.instanceof universo){
+          
+          }
     }//GEN-LAST:event_jb_agregarMouseClicked
+
+    private void eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarMouseClicked
+         
+    }//GEN-LAST:event_eliminarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -568,13 +588,13 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton b_crear;
     private javax.swing.JButton b_editar;
     private javax.swing.JProgressBar barra;
+    private javax.swing.JComboBox<String> c_eliminar;
     private javax.swing.JButton crearuniverso;
+    private javax.swing.JButton eliminar;
     private javax.swing.JFormattedTextField ftf_edad;
     private javax.swing.JFormattedTextField ftf_poder;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JFormattedTextField jFormattedTextField4;
     private javax.swing.JLabel jLabel1;
@@ -598,7 +618,6 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JButton jb_agregar;
@@ -607,6 +626,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jr_amato;
     private javax.swing.JRadioButton jr_humano;
     private javax.swing.JTextField nombreuniverso;
+    private javax.swing.JTextField ruta;
     private javax.swing.JTextField tf_id;
     private javax.swing.JTextField tf_nombre;
     // End of variables declaration//GEN-END:variables
