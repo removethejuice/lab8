@@ -6,8 +6,11 @@
 package lab8p2_.diegochavez;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -21,6 +24,8 @@ import javax.swing.JOptionPane;
  */
 public class NewJFrame extends javax.swing.JFrame {
 
+    ArrayList<universo> pend = new ArrayList();
+    ArrayList<servivo> pend2 = new ArrayList();
     int numerox = 0;
 
     /**
@@ -54,12 +59,12 @@ public class NewJFrame extends javax.swing.JFrame {
         jFormattedTextField3 = new javax.swing.JFormattedTextField();
         jFormattedTextField4 = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        C_2 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
         b_editar = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        c_editar = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         barra = new javax.swing.JProgressBar();
@@ -147,6 +152,11 @@ public class NewJFrame extends javax.swing.JFrame {
         jRadioButton4.setText("Humano");
 
         b_editar.setText("Editar");
+        b_editar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                b_editarMouseClicked(evt);
+            }
+        });
 
         jLabel12.setText("Personaje a Seleccionar");
 
@@ -174,7 +184,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGap(51, 51, 51)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField5)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(C_2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,7 +195,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(237, 237, 237)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(c_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(254, 254, 254)
                         .addComponent(jLabel12)))
@@ -197,7 +207,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(jLabel12)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(c_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,7 +227,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(C_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -435,44 +445,51 @@ public class NewJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Opcion no permitidaaaa no deben de haber espacios vacios");
             return;
         }
-             
-            universo x12 = new universo();
-            x12.setNombre(nombreuniverso.getText());
-            adminuniverso v = new adminuniverso();
-            v.leer();
-            v.getListauniversos().add(x12);
-            v.escribir();
 
-            File xc = new File("./universo/" + nombreuniverso.getText() + ".mb");
-            FileOutputStream fw = null;
-            ObjectOutputStream bw = null;
+        universo x12 = new universo();
+        x12.setNombre(nombreuniverso.getText());
+        adminuniverso v = new adminuniverso();
+        v.leer();
+        v.getListauniversos().add(x12);
+        v.escribir();
+
+        File xc = new File("./universo/" + nombreuniverso.getText() + ".mb");
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+        try {
+            fw = new FileOutputStream(xc);
+            bw = new ObjectOutputStream(fw);
+
+            bw.writeObject(xc);
+
+            bw.flush();
+        } catch (Exception ex) {
+        } finally {
             try {
-                fw = new FileOutputStream(xc);
-                bw = new ObjectOutputStream(fw);
-
-                bw.writeObject(xc);
-
-                bw.flush();
+                bw.close();
+                fw.close();
             } catch (Exception ex) {
-            } finally {
-                try {
-                    bw.close();
-                    fw.close();
-                } catch (Exception ex) {
-                }
             }
-            JOptionPane.showMessageDialog(this, "Universo creado");
-            nombreuniverso.setText("");
-        
-    }//GEN-LAST:event_crearuniversoMouseClicked
-
-    private void b_crearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_crearMouseClicked
-        DefaultComboBoxModel cv = (DefaultComboBoxModel)jc_universo.getModel();
+        }
+        JOptionPane.showMessageDialog(this, "Universo creado");
+        nombreuniverso.setText("");
+        DefaultComboBoxModel cv = (DefaultComboBoxModel) jc_universo.getModel();
         adminuniverso f = new adminuniverso();
         f.leer();
         for (universo g : f.getListauniversos()) {
             cv.addElement(g);
         }
+        
+         DefaultComboBoxModel ct = (DefaultComboBoxModel) C_2.getModel();
+        adminuniverso fR = new adminuniverso();
+        fR.leer();
+        for (universo g : fR.getListauniversos()) {
+            ct.addElement(g);
+        }
+    }//GEN-LAST:event_crearuniversoMouseClicked
+
+    private void b_crearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_crearMouseClicked
+
         if (tf_nombre.getText().equals("") || tf_id.getText().equals("") || ftf_edad.getText().equals("") || ftf_poder.getText().equals("") || (!jr_humano.isSelected() && !jr_amato.isSelected())) {
             JOptionPane.showMessageDialog(this, "Opcion no permitida no deben de haber espacios vacios");
         } else {
@@ -506,15 +523,24 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
             JOptionPane.showMessageDialog(this, "Ser creado");
-            tf_nombre.setText(""); tf_id.setText(""); ftf_poder.setText("");
-          ftf_edad.setText("");  
+            tf_nombre.setText("");
+            tf_id.setText("");
+            ftf_poder.setText("");
+            ftf_edad.setText("");
         }// fin del else
 
- DefaultComboBoxModel cy = (DefaultComboBoxModel)c_eliminar.getModel();
+        DefaultComboBoxModel cy = (DefaultComboBoxModel) c_eliminar.getModel();
         adminseresvivos f3 = new adminseresvivos();
         f3.leer();
         for (servivo g : f3.getListaseresvivos()) {
             cy.addElement(g);
+        }
+
+        DefaultComboBoxModel cz = (DefaultComboBoxModel) c_editar.getModel();
+        adminseresvivos ft = new adminseresvivos();
+        ft.leer();
+        for (servivo g : f3.getListaseresvivos()) {
+            cz.addElement(g);
         }
     }//GEN-LAST:event_b_crearMouseClicked
 
@@ -523,23 +549,39 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ftf_poderActionPerformed
 
     private void jb_cargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_cargarMouseClicked
-        hilo xt = new hilo();
-        
+        hilo xt = new hilo(barra,numerox);
+        Thread proceso1 = new Thread(xt);
+        proceso1.start(); 
+        numerox =0;
     }//GEN-LAST:event_jb_cargarMouseClicked
 
     private void jb_agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarMouseClicked
         numerox++;
-        ArrayList<universo> pendejada = new ArrayList();
-         ArrayList<servivo> pendejada2 = new ArrayList();
-          File xc = new File(ruta.getText());
-          if (xc.instanceof universo){
-          
-          }
+
+        File xc = new File(ruta.getText());
+        try {
+            FileInputStream xv = new FileInputStream(xc);
+            ObjectInputStream gh = new ObjectInputStream(xv);
+            if (gh.readObject() instanceof universo) {
+                pend.add((universo) gh.readObject());
+            } else if (gh.readObject() instanceof servivo) {
+                pend2.add((servivo) gh.readObject());
+            } else {
+                JOptionPane.showMessageDialog(this, "No es de tipo universo o ser vivo, archivo EQUIVOCADO");
+            }
+
+        } catch (Exception fvg) {
+
+        }
     }//GEN-LAST:event_jb_agregarMouseClicked
 
     private void eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarMouseClicked
-         
+
     }//GEN-LAST:event_eliminarMouseClicked
+
+    private void b_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_b_editarMouseClicked
+         
+    }//GEN-LAST:event_b_editarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -585,16 +627,16 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> C_2;
     private javax.swing.JButton b_crear;
     private javax.swing.JButton b_editar;
     private javax.swing.JProgressBar barra;
+    private javax.swing.JComboBox<String> c_editar;
     private javax.swing.JComboBox<String> c_eliminar;
     private javax.swing.JButton crearuniverso;
     private javax.swing.JButton eliminar;
     private javax.swing.JFormattedTextField ftf_edad;
     private javax.swing.JFormattedTextField ftf_poder;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JFormattedTextField jFormattedTextField4;
     private javax.swing.JLabel jLabel1;
